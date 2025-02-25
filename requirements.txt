@@ -1,6 +1,7 @@
 streamlit
-sounddevice
 numpy
 scipy
 whisper
 torch
+ffmpeg-python
+pyaudio
