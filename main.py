@@ -4,6 +4,8 @@ import whisper
 import tempfile
 import os
 from openai import OpenAI
+os.environ["STREAMLIT_WATCH_DISABLE"] = "true"
+os.environ["TORCH_DISTRIBUTED_DEBUG"] = "DETAIL"
 
 st.set_page_config(page_title="Audio Recorder with Transcription")
 st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''', unsafe_allow_html=True)
@@ -26,8 +28,8 @@ def transcribe_audio(file_path):
     """Transcribes the recorded audio using Whisper Medium model for Spanish."""
     if not file_path:
         return "No audio recorded."
-    model = whisper.load_model("medium")
-    result = model.transcribe(file_path, language="es")
+    model = whisper.load_model(os.environ.get("WHISPER_MODEL","base"), device="cpu")
+    result = model.transcribe(file_path, language="es",fp16=False)
     return result["text"]
 
 def summarize_text_with_llm(text):
