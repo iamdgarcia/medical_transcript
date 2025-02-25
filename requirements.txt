@@ -1,7 +1,5 @@
+streamlit-audiorec
 streamlit
-numpy
-scipy
-whisper
-torch
+openai-whisper
 ffmpeg-python
-pyaudio
+openai
